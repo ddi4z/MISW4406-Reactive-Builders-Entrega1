@@ -1,11 +1,11 @@
 /* Alpes Partners – TO-BE V1.2 (con regiones normativas y patrones de integración)
- * Notación de relaciones (siguiendo tu ejemplo):
+ * Notación de relaciones:
  *   Izquierda [D]  = Downstream (consumidor)
  *   Derecha  [U]  = Upstream   (proveedor)
  *   OHS = Open Host Service, PL = Published Language, ACL = Anti-Corruption Layer
  */
 
-ContextMap AlpesPartners_TO_BE_V12 {
+ContextMap AlpesPartners {
   state = TO_BE
   contains GestionAsociacionesEstrategicas
   contains GestionCampanas
