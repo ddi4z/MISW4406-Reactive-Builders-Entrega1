@@ -1,79 +1,78 @@
-/* The DDD Cargo sample application modeled in CML. Note that we split the application into multiple bounded contexts. */
-ContextMap DDDSampleMap {
-	contains CargoBookingContext
-	contains VoyagePlanningContext
-	contains LocationContext
+Domain StrategicPartnerships {
+  domainVisionStatement = "Creación y gestión de asociaciones estratégicas"
 
-	/* As Evans mentions in his book (Bounded Context chapter): The voyage planning can be seen as
-	 * separated bounded context. However, it still shares code with the booking application (CargoBookingContext).
-	 * Thus, they are in a 'Shared-Kernel' relationship.
-	 */
-	CargoBookingContext [SK]<->[SK] VoyagePlanningContext
+  Subdomain AffiliateProgramManagement {
+    type = CORE_DOMAIN
+    domainVisionStatement = "Gestión de programas de afiliados"
+  }
 
-	/* Note that the splitting of the LocationContext is not mentioned in the original DDD sample of Evans.
-	 * However, locations and the management around them, can somehow be seen as a separated concept which is used by other
-	 * bounded contexts. But this is just an example, since we want to demonstrate our DSL with multiple bounded contexts.
-	 */
-	CargoBookingContext [D]<-[U,OHS,PL] LocationContext
+  Subdomain InfluencerMarketingManagement {
+    type = CORE_DOMAIN
+    domainVisionStatement = "Gestión de marketing de influencers y creadores de contenido"
+  }
 
-	VoyagePlanningContext [D]<-[U,OHS,PL] LocationContext
+  Subdomain LoyaltyProgramManagement {
+    type = CORE_DOMAIN
+    domainVisionStatement = "Gestión de programas de lealtad"
+  }
 
-}
+  Subdomain B2BPartnershipManagement {
+    type = CORE_DOMAIN
+    domainVisionStatement = "Gestión de alianzas B2B"
+  }
 
-/* The original booking application context */
-BoundedContext CargoBookingContext {
-	Module cargo {
-		basePackage = se.citerus.dddsample.domain.model
+  Subdomain CampaignManagement {
+    type = CORE_DOMAIN
+    domainVisionStatement = "Gestión de campañas"
+  }
 
-		Aggregate CargoItineraryLegDeliveryRouteSpecification {
-			Entity Cargo
-			ValueObject Delivery
-			ValueObject HandlingActivity
-			ValueObject Itinerary
-			ValueObject Leg
-			ValueObject RouteSpecification
-			enum TransportStatus {
-	            NOT_RECEIVED, IN_PORT, ONBOARD_CARRIER, CLAIMED, UNKNOWN
-			}
-			enum RoutingStatus {
-				NOT_ROUTED, ROUTED, MISROUTED
-			}
-		}
-	}
+  Subdomain ProcessAutomation {
+    type = SUPPORTING_DOMAIN
+    domainVisionStatement = "Administración y automatización de procesos y operaciones"
+  }
 
-	Module handling {
-		basePackage = se.citerus.dddsample.domain.model
+  Subdomain FinanceAndTreasury {
+    type = SUPPORTING_DOMAIN
+    domainVisionStatement = "Finanzas y tesorería"
+  }
 
-		Aggregate Handling {
-			DomainEvent HandlingEvent
-			ValueObject HandlingHistory
-		}
-	}
-}
+  Subdomain ComplianceAndAudit {
+    type = SUPPORTING_DOMAIN
+    domainVisionStatement = "Cumplimiento normativo y auditoría"
+  }
 
-/* We split the Voyage Planning into a separate bounded context as Evans proposes it in his book. */
-BoundedContext VoyagePlanningContext {
-	Module voyage {
-		basePackage = se.citerus.dddsample.domain.model
+  Subdomain PaymentsAndFinCore {
+    type = SUPPORTING_DOMAIN
+    domainVisionStatement = "Pagos y FinCore"
+  }
 
-		Aggregate Voyage {
-			Entity Voyage
-			ValueObject CarrierMovement
-			ValueObject Schedule
-			ValueObject VoyageNumber
-		}
-	}
-}
+  Subdomain EventProcessing {
+    type = GENERIC_SUBDOMAIN
+    domainVisionStatement = "Procesamiento de eventos"
+  }
 
-/* Separate bounded context for managing the locations. */
-BoundedContext LocationContext {
-	Module location {
-		basePackage = se.citerus.dddsample.domain.model
+  Subdomain SalesAndMarketing {
+    type = GENERIC_SUBDOMAIN
+    domainVisionStatement = "Mercadeo y ventas"
+  }
 
-		Aggregate Location {
-			Entity Location
-			ValueObject UnLocode
-			ValueObject LocationShared
-		}
-	}
+  Subdomain ContractsAndOnboarding {
+    type = GENERIC_SUBDOMAIN
+    domainVisionStatement = "Contratos y onboarding"
+  }
+
+  Subdomain Reporting {
+    type = GENERIC_SUBDOMAIN
+    domainVisionStatement = "Reportes"
+  }
+
+  Subdomain PartnerDiscoveryAndRecruitment {
+    type = GENERIC_SUBDOMAIN
+    domainVisionStatement = "Descubrimiento y reclutamiento de socios"
+  }
+
+  Subdomain ContentAndProducts {
+    type = GENERIC_SUBDOMAIN
+    domainVisionStatement = "Contenido y productos"
+  }
 }
