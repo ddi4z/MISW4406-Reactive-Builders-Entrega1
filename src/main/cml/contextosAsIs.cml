@@ -1,0 +1,81 @@
+// ---------------------------
+// Bounded Contexts (AS-IS)
+// ---------------------------
+
+BoundedContext ContextoGestionAsociacionesEstrategicas {
+  domainVisionStatement "Administra la relación de negocio entre partners (afiliados, embajadores, agencias) y marcas, incluyendo la asociación y la creación de campañas."
+}
+
+BoundedContext ContextoContratos {
+  domainVisionStatement "Genera y gestiona contratos entre partners y marcas, considerando los términos legales aplicables a cada región."
+}
+
+BoundedContext ContextoTrackingEventos {
+  domainVisionStatement "Registra y gestiona los eventos generados en las interacciones de partners y consumidores, habilitando el seguimiento de desempeño."
+}
+
+BoundedContext ContextoPagos {
+  domainVisionStatement "Gestiona el pago de eventos a los partners de acuerdo con los contratos establecidos, considerando validaciones regulatorias o fiscales de cada región."
+}
+
+BoundedContext ContextoReportesAnalitica {
+  domainVisionStatement "Genera reportes de ejecución de campañas y análisis de partners, apoyando la toma de decisiones de negocio."
+}
+
+// ---------------------------
+// Context Map (AS-IS Monolito)
+// ---------------------------
+
+ContextMap AlpesPartners_ASIS_Monolito {
+  contains ContextoGestionAsociacionesEstrategicas
+  contains ContextoContratos
+  contains ContextoTrackingEventos
+  contains ContextoPagos
+  contains ContextoReportesAnalitica
+
+  // NOTA: El sistema actual es un MONOLITO. Para reflejarlo,
+  // modelamos un Shared Kernel entre TODOS los contextos (comparten código/datos).
+  ContextoGestionAsociacionesEstrategicas [SK] <-> [SK] ContextoContratos
+  ContextoGestionAsociacionesEstrategicas [SK] <-> [SK] ContextoTrackingEventos
+  ContextoGestionAsociacionesEstrategicas [SK] <-> [SK] ContextoPagos
+  ContextoGestionAsociacionesEstrategicas [SK] <-> [SK] ContextoReportesAnalitica
+  ContextoContratos [SK] <-> [SK] ContextoTrackingEventos
+  ContextoContratos [SK] <-> [SK] ContextoPagos
+  ContextoContratos [SK] <-> [SK] ContextoReportesAnalitica
+  ContextoTrackingEventos [SK] <-> [SK] ContextoPagos
+  ContextoTrackingEventos [SK] <-> [SK] ContextoReportesAnalitica
+  ContextoPagos [SK] <-> [SK] ContextoReportesAnalitica
+
+  // -----------------------
+  // Relaciones funcionales (según 3ª columna)
+  // -----------------------
+
+  // Gestión de Asociaciones Estratégicas:
+  // - Se relaciona con Contratos para formalizar acuerdos
+  // - Provee insumos a Tracking y a Reportes/Analítica
+  ContextoGestionAsociacionesEstrategicas [U] -> [D] ContextoContratos
+  ContextoGestionAsociacionesEstrategicas [U] -> [D] ContextoTrackingEventos
+  ContextoGestionAsociacionesEstrategicas [U] -> [D] ContextoReportesAnalitica
+  // (Implícito): Recibe entidades desde Onboarding
+
+  // Contratos:
+  // - Provee contratos válidos a Pagos
+  // - Es fuente para Tracking (Tracking consume asociaciones y contratos)
+  ContextoContratos [U] -> [D] ContextoPagos
+  ContextoContratos [U] -> [D] ContextoTrackingEventos
+  // (Implícito): Referencia a Cumplimiento Normativo
+
+  // Tracking y Eventos:
+  // - Alimenta a Pagos y a Reportes/Analítica
+  ContextoTrackingEventos [U] -> [D] ContextoPagos
+  ContextoTrackingEventos [U] -> [D] ContextoReportesAnalitica
+
+  // Pagos:
+  // - Provee datos a Reportes/Analítica
+  // - (Ya reflejado como downstream de Contratos y Tracking)
+  ContextoPagos [U] -> [D] ContextoReportesAnalitica
+
+  // Reportes y Analítica:
+  // - Consume info de Tracking, Pagos y Gestión de Asociaciones
+  // (Relaciones upstream ya modeladas arriba)
+}
