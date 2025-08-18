@@ -13,15 +13,12 @@
 
 ### Parte 1: Dominios y Subdominios
 
-El archivo [`subdominios.cml`](https://github.com/ddi4z/MISW4406-Reactive-Builders-Entrega1/blob/main/src/main/cml/subdominios.cml) define los dominios y subdominios del proyecto **Alpes Partners** utilizando el DSL de **ContextMapper**.
-
-📂 Carpeta: [`src/main/cml`](https://github.com/ddi4z/MISW4406-Reactive-Builders-Entrega1/tree/main/src/main/cml)
-
+El archivo [`src/main/cml/subdominios.cml`](https://github.com/ddi4z/MISW4406-Reactive-Builders-Entrega1/blob/main/src/main/cml/subdominios.cml) define los dominios y subdominios del proyecto **Alpes Partners** utilizando el DSL de **ContextMapper**.
 ---
 
 ### Parte 2: EventStorming - Lenguaje Ubicuo
 
-En la carpeta [`main/docs/lenguaje_ubicu`](https://github.com/ddi4z/MISW4406-Reactive-Builders-Entrega1/tree/main/src/main/docs/lenguaje_ubicuo) se encuentran los diagramas:
+En la carpeta [`main/docs/lenguaje_ubicuo`](https://github.com/ddi4z/MISW4406-Reactive-Builders-Entrega1/tree/main/src/main/docs/lenguaje_ubicuo) se encuentran los diagramas:
 
 - [`as_is.jpg`](https://github.com/ddi4z/MISW4406-Reactive-Builders-Entrega1/blob/main/src/main/docs/lenguaje_ubicuo/as_is.jpg)
 - [`to_be.jpg`](https://github.com/ddi4z/MISW4406-Reactive-Builders-Entrega1/blob/main/src/main/docs/lenguaje_ubicuo/to_be.jpg)
