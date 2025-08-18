@@ -19,18 +19,18 @@ ContextMap AlpesPartners {
   contains CumplimientoNormativoAPAC
 
   // Campañas depende de Asociaciones (obtiene elegibilidad, condiciones, etc.)
-  GestionCampanas [D]<-[U,OHS] GestionAsociacionesEstrategicas
+  GestionCampanas [D,ACL]<-[U,OHS] GestionAsociacionesEstrategicas
 
   // Contratos depende de Asociaciones (entrada de relación partner↔marca)
-  GestionContratos [D]<-[U,OHS] GestionAsociacionesEstrategicas
+  GestionContratos [D,ACL]<-[U,OHS] GestionAsociacionesEstrategicas
 
   // Tracking consume publicaciones de Campañas y Asociaciones (PL)
   TrackingEventos [D]<-[U,PL] GestionCampanas
   TrackingEventos [D]<-[U,PL] GestionAsociacionesEstrategicas
 
   // Pagos depende de Contratos (OHS) y de Tracking (PL)
-  Pagos [D]<-[U,OHS] GestionContratos
-  Pagos [D]<-[U,PL]  TrackingEventos
+  Pagos [D,ACL]<-[U,OHS] GestionContratos
+  Pagos [D,ACL]<-[U,PL]  TrackingEventos
 
   // Reportes/Analítica consume de múltiples fuentes (PL)
   ReportesAnalitica [D]<-[U,PL] TrackingEventos
