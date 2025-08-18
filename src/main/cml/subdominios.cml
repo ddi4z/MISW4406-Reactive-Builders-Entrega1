@@ -38,9 +38,9 @@ Domain CreacionYGestionDeAsociacionesEstrategicas {
     domainVisionStatement = "Supervisión de cumplimiento normativo y auditoría antifraude."
   }
 
-  Subdomain Pagos {
+  Subdomain PagosYFinCore {
     type = SUPPORTING_DOMAIN
-    domainVisionStatement = "Procesamiento de pagos y conciliación financiera."
+    domainVisionStatement = "Procesamiento de pagos y finCore."
   }
 
   Subdomain Contratos {

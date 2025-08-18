@@ -1,28 +1,43 @@
-![Context Mapper](https://raw.githubusercontent.com/wiki/ContextMapper/context-mapper-dsl/logo/cm-logo-github-small.png)
-# Demostración de Context Mapper para el IDE en línea
-[![Build](https://github.com/ContextMapper/web-ide-demo/actions/workflows/build.yml/badge.svg)](https://github.com/ContextMapper/web-ide-demo/actions) [![Open in GitHub Codespaces](https://github.com/codespaces/badge.svg)](https://github.com/codespaces/new?hide_repo_select=true&repo=MISW4406/tutorial-2-mapas-contexto) [![License](https://img.shields.io/badge/License-Apache%202.0-blue.svg)](https://opensource.org/licenses/Apache-2.0)
+# Diseño y Construcción de Soluciones No Monolíticas
 
-Bienvenido al repositorio de demostración de Context Mapper. Aquí se ilustra cómo puedes configurar tu propio repositorio para utilizar Context Mapper en el IDE en línea de GitHub Codespaces.
+## 👥 Integrantes
 
-## Comienza a utilizar Context Mapper ahora
-Inicia el Codespace y usa Context Mapper de inmediato:
+| Nombre                          | Correo                           |
+|---------------------------------|----------------------------------|
+| Orlando Giovanny Solarte Delgado | o.solarte@uniandes.edu.co |
+| Martín Flores Arango             | r.floresa@uniandes.edu.co |
+| Sara Sofía Cárdenas Rodríguez    | ss.cardenas@uniandes.edu.co |
+| Daniel Felipe Díaz Moreno        | d.diazm@uniandes.edu.co  |
 
-<a href="https://github.com/codespaces/new?hide_repo_select=true&repo=MISW4406/tutorial-2-mapas-contexto" style="padding: 10px;">
-    <img src="https://github.com/codespaces/badge.svg" width="150" alt="Push" align="center">
-</a>
-<br/><br/>
+## 📌 Entrega 1
 
-## Abre el archivo de demostración
-En la carpeta `src/main/cml` encontrarás un pequeño **[demo en CML](./src/main/cml/demo.cml)** (aplicación de ejemplo DDD) con el que puedes empezar a familiarizarte con nuestro DSL y nuestras herramientas.
-Puedes encontrar más información sobre la herramienta y la documentación completa en nuestro sitio web [https://contextmapper.org/](https://contextmapper.org/).
+### Parte 1: Dominios y Subdominios
 
-## Crea tu propio repositorio de mapeo de contextos
-Puedes hacer un fork de este repositorio y hacer clic en el botón de arriba para iniciar el Codespace para tu repo.
+El archivo [`subdominios.cml`](https://github.com/ddi4z/MISW4406-Reactive-Builders-Entrega1/blob/main/src/main/cml/subdominios.cml) define los dominios y subdominios del proyecto **Alpes Partners** utilizando el DSL de **ContextMapper**.
 
-## Enlaces útiles
+📂 Carpeta: [`src/main/cml`](https://github.com/ddi4z/MISW4406-Reactive-Builders-Entrega1/tree/main/src/main/cml)
 
- * [Más modelos de ejemplo](https://github.com/ContextMapper/context-mapper-examples)
- * [Referencia del lenguaje CML](https://contextmapper.org/docs/language-reference/)
- * [Tutorial de prototipado rápido](https://contextmapper.org/docs/rapid-ooad/)
- * [Refactorizaciones arquitectónicas](https://contextmapper.org/docs/architectural-refactorings/)
- * [Generadores](https://contextmapper.org/docs/generators/)
+---
+
+### Parte 2: EventStorming - Lenguaje Ubicuo
+
+En la carpeta [`main/docs/lenguaje_ubicu`](https://github.com/ddi4z/MISW4406-Reactive-Builders-Entrega1/tree/main/src/main/docs/lenguaje_ubicuo) se encuentran los diagramas:
+
+- [`as_is.jpg`](https://github.com/ddi4z/MISW4406-Reactive-Builders-Entrega1/blob/main/src/main/docs/lenguaje_ubicuo/as_is.jpg)
+- [`to_be.jpg`](https://github.com/ddi4z/MISW4406-Reactive-Builders-Entrega1/blob/main/src/main/docs/lenguaje_ubicuo/to_be.jpg)
+
+Estos representan el lenguaje ubicuo del sistema en los escenarios **AS-IS** y **TO-BE**.
+
+---
+
+### Parte 3: Contextos Acotados AS-IS y TO-BE
+
+En la carpeta [`src/main/cml`](https://github.com/ddi4z/MISW4406-Reactive-Builders-Entrega1/tree/main/src/main/cml) se encuentran los archivos:
+
+- [`contextosAsIs.cml`](https://github.com/ddi4z/MISW4406-Reactive-Builders-Entrega1/blob/main/src/main/cml/contextosAsIs.cml)
+- [`contextosToBe.cml`](https://github.com/ddi4z/MISW4406-Reactive-Builders-Entrega1/blob/main/src/main/cml/contextosToBe.cml)
+
+Además, en la carpeta [`Lenguaje_ubicuo`](https://github.com/ddi4z/MISW4406-Reactive-Builders-Entrega1/tree/main/src/main/docs/Lenguaje_ubicuo) pueden encontrarse las representaciones gráficas en formato **PNG**:
+
+- [`as_is.png`](https://github.com/ddi4z/MISW4406-Reactive-Builders-Entrega1/blob/main/src/main/docs/Lenguaje_ubicuo/as_is.png)
+- [`to_be.png`](https://github.com/ddi4z/MISW4406-Reactive-Builders-Entrega1/blob/main/src/main/docs/Lenguaje_ubicuo/to_be.png)
