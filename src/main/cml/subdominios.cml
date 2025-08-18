@@ -7,7 +7,7 @@ Domain CreacionYGestionDeAsociacionesEstrategicas {
     domainVisionStatement = "Gestión de programas de afiliación."
   }
 
-  Subdomain Influencers {
+  Subdomain InfluencersYCreadores {
     type = CORE_DOMAIN
     domainVisionStatement = "Gestión de marketing de influencers y creadores de contenido."
   }
@@ -64,7 +64,7 @@ Domain CreacionYGestionDeAsociacionesEstrategicas {
     domainVisionStatement = "Procesamiento y distribución de eventos."
   }
 
-  Subdomain Mercadeo {
+  Subdomain MercadeoYVentas {
     type = GENERIC_SUBDOMAIN
     domainVisionStatement = "Actividades de mercadeo y ventas generales."
   }
