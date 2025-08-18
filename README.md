@@ -48,6 +48,8 @@ El archivo [src/main/cml/subdominios.cml](./src/main/cml/subdominios.cml) define
 
 En la carpeta [src/docs/lenguaje_ubicuo](./src/docs/lenguaje_ubicuo) se encuentran los diagramas de **Event Storming**, que ilustran el lenguaje ubicuo del sistema en los escenarios **AS-IS** (estado actual) y **TO-BE** (estado propuesto).
 
+> **NOTA:** Para representar el flujo solicitado, se usaron 4 flujos diferentes pero complementarios.
+
 - [as_is.jpg](./src/docs/lenguaje_ubicuo/as_is.jpg)
 - [to_be.jpg](./src/docs/lenguaje_ubicuo/to_be.jpg)
 

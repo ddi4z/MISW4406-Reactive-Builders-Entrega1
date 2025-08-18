@@ -50,12 +50,12 @@ Domain CreacionYGestionDeAsociacionesEstrategicas {
 
   Subdomain Reportes {
     type = SUPPORTING_DOMAIN
-    domainVisionStatement = "Generación de reportes y análisis de datos."
+    domainVisionStatement = "Generación de reportes y analítica de datos."
   }
 
   Subdomain Contenido {
     type = SUPPORTING_DOMAIN
-    domainVisionStatement = "Administración de contenidos y productos."
+    domainVisionStatement = "Gestión de contenido y productos."
   }
 
   //--- Subdominios Genéricos ---//
@@ -66,11 +66,11 @@ Domain CreacionYGestionDeAsociacionesEstrategicas {
 
   Subdomain MercadeoYVentas {
     type = GENERIC_SUBDOMAIN
-    domainVisionStatement = "Actividades de mercadeo y ventas generales."
+    domainVisionStatement = "Mercadeo y ventas."
   }
 
   Subdomain Finanzas {
     type = GENERIC_SUBDOMAIN
-    domainVisionStatement = "Administración de tesorería y finanzas."
+    domainVisionStatement = "Gestión financiera y de tesorería."
   }
 }
