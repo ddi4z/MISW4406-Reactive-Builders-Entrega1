@@ -1,0 +1,76 @@
+Domain CreacionYGestionDeAsociacionesEstrategicas {
+  domainVisionStatement = "Creación, gestión y escalamiento de asociaciones estratégicas entre marcas, afiliados, influencers, embajadores y socios B2B."
+
+  //--- Subdominios de Núcleo ---//
+  Subdomain Afiliados {
+    type = CORE_DOMAIN
+    domainVisionStatement = "Gestión de programas de afiliación."
+  }
+
+  Subdomain Influencers {
+    type = CORE_DOMAIN
+    domainVisionStatement = "Gestión de marketing de influencers y creadores de contenido."
+  }
+
+  Subdomain Lealtad {
+    type = CORE_DOMAIN
+    domainVisionStatement = "Gestión de programas de lealtad."
+  }
+
+  Subdomain Alianzas {
+    type = CORE_DOMAIN
+    domainVisionStatement = "Gestión de alianzas Business To Business."
+  }
+
+  Subdomain Campanias {
+    type = CORE_DOMAIN
+    domainVisionStatement = "Gestión de campañas de marketing."
+  }
+
+  //--- Subdominios de Soporte ---//
+  Subdomain ProcesosYOperaciones {
+    type = SUPPORTING_DOMAIN
+    domainVisionStatement = "Administración y automatización de procesos internos y operaciones."
+  }
+
+  Subdomain Cumplimiento {
+    type = SUPPORTING_DOMAIN
+    domainVisionStatement = "Supervisión de cumplimiento normativo y auditoría antifraude."
+  }
+
+  Subdomain Pagos {
+    type = SUPPORTING_DOMAIN
+    domainVisionStatement = "Procesamiento de pagos y conciliación financiera."
+  }
+
+  Subdomain Contratos {
+    type = SUPPORTING_DOMAIN
+    domainVisionStatement = "Gestión de contratos y onboarding."
+  }
+
+  Subdomain Reportes {
+    type = SUPPORTING_DOMAIN
+    domainVisionStatement = "Generación de reportes y análisis de datos."
+  }
+
+  Subdomain Contenido {
+    type = SUPPORTING_DOMAIN
+    domainVisionStatement = "Administración de contenidos y productos."
+  }
+
+  //--- Subdominios Genéricos ---//
+  Subdomain Eventos {
+    type = GENERIC_SUBDOMAIN
+    domainVisionStatement = "Procesamiento y distribución de eventos."
+  }
+
+  Subdomain Mercadeo {
+    type = GENERIC_SUBDOMAIN
+    domainVisionStatement = "Actividades de mercadeo y ventas generales."
+  }
+
+  Subdomain Finanzas {
+    type = GENERIC_SUBDOMAIN
+    domainVisionStatement = "Administración de tesorería y finanzas."
+  }
+}
