@@ -4,7 +4,7 @@ import "subdominios.cml"
 // Bounded Contexts (AS-IS)
 // ---------------------------
 
-BoundedContext ContextoGestionAsociacionesEstrategicas implements Afiliados, InfluencersYCreadoresContenido, Lealtad, AlianzasB2B {
+BoundedContext ContextoGestionAsociacionesEstrategicas implements Afiliados, InfluencersYCreadoresContenido, Lealtad, AlianzasB2B, ContenidoYProductos {
   domainVisionStatement "Administra la relación de negocio entre partners (afiliados, embajadores, agencias) y marcas, incluyendo la asociación y la creación de campañas."
 }
 
@@ -16,12 +16,16 @@ BoundedContext ContextoTrackingEventos implements TrackingEventos {
   domainVisionStatement "Registra y gestiona los eventos generados en las interacciones de partners y consumidores, habilitando el seguimiento de desempeño."
 }
 
-BoundedContext ContextoPagos implements PagosYFinCore {
+BoundedContext ContextoPagos implements PagosYFinCore, CumplimientoYAuditoria {
   domainVisionStatement "Gestiona el pago de eventos a los partners de acuerdo con los contratos establecidos, considerando validaciones regulatorias o fiscales de cada región."
 }
 
 BoundedContext ContextoReportesYAnalitica implements ReportesYAnalitica {
   domainVisionStatement "Genera reportes de ejecución de campañas y análisis de partners, apoyando la toma de decisiones de negocio."
+}
+
+BoundedContext Marketing implements Campanias, PaidMedia {
+  domainVisionStatement = "Gestión de campañas y medios de marketing"
 }
 
 // ---------------------------
@@ -34,6 +38,7 @@ ContextMap AlpesPartners_ASIS_Monolito {
   contains ContextoTrackingEventos
   contains ContextoPagos
   contains ContextoReportesYAnalitica
+  contains Marketing
 
   // NOTA: El sistema actual es un MONOLITO. Para reflejarlo,
   // modelamos un Shared Kernel entre TODOS los contextos (comparten código/datos).
@@ -58,6 +63,7 @@ ContextMap AlpesPartners_ASIS_Monolito {
   ContextoGestionAsociacionesEstrategicas [U] -> [D, ACL] ContextoContratosYOnboarding
   ContextoGestionAsociacionesEstrategicas [U] -> [D, ACL] ContextoTrackingEventos
   ContextoGestionAsociacionesEstrategicas [U] -> [D, ACL] ContextoReportesYAnalitica
+  ContextoGestionAsociacionesEstrategicas [U] -> [D, ACL] Marketing
   // (Implícito): Recibe entidades desde Onboarding
 
   // Contratos:
@@ -76,6 +82,9 @@ ContextMap AlpesPartners_ASIS_Monolito {
   // - Provee datos a Reportes/Analítica
   // - (Ya reflejado como downstream de Contratos y Tracking)
   ContextoPagos [U] -> [D, ACL] ContextoReportesYAnalitica
+
+  // Marketing y analítica
+  Marketing [U] -> [D, ACL] ContextoReportesYAnalitica
 
   // Reportes y Analítica:
   // - Consume info de Tracking, Pagos y Gestión de Asociaciones

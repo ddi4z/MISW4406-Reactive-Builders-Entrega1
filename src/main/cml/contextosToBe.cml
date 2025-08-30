@@ -12,8 +12,8 @@ Administra todo el ciclo de vida de los partners (afiliados, influencers, embaja
 "
 }
 
-BoundedContext GestionCampanias implements Campanias {
-  domainVisionStatement = "Gestión de campañas de marketing"
+BoundedContext Marketing implements Campanias, PaidMedia {
+  domainVisionStatement = "Gestión de campañas y medios de marketing"
 }
 
 BoundedContext GestionContratosYOnboarding implements ContratosYOnboarding {
@@ -36,6 +36,12 @@ BoundedContext Pagos implements PagosYFinCore {
 BoundedContext ReportesYAnalitica implements ReportesYAnalitica {
   domainVisionStatement = "
 Genera reportes de ejecución y análisis de partners y campañas, apoyando la toma de decisiones de campaña.
+"
+}
+
+BoundedContext ContenidoYProductos implements ContenidoYProductos {
+  domainVisionStatement = "
+  Maneja las ofertas y el catálogo.
 "
 }
 
@@ -74,18 +80,19 @@ Define y supervisa las reglas regulatorias y fiscales de Asia-Pacífico (Austral
 ContextMap AlpesPartners {
   state = TO_BE
   contains GestionAsociacionesEstrategicas
-  contains GestionCampanias
+  contains Marketing
   contains GestionContratosYOnboarding
   contains TrackingEventos
   contains Pagos
   contains ReportesYAnalitica
+  contains ContenidoYProductos
   contains CumplimientoNormativoLATAM
   contains CumplimientoNormativoNA
   contains CumplimientoNormativoEMEA
   contains CumplimientoNormativoAPAC
 
-  // Campañas depende de Asociaciones (obtiene elegibilidad, condiciones, etc.)
-  GestionCampanias [D,ACL]<-[U,OHS] GestionAsociacionesEstrategicas
+  // Marketing depende de Asociaciones
+  Marketing [D,ACL]<-[U,OHS] GestionAsociacionesEstrategicas
 
   // Contratos depende de Asociaciones (entrada de relación partner↔marca)
   GestionContratosYOnboarding [D,ACL]<-[U,OHS] GestionAsociacionesEstrategicas
@@ -100,8 +107,11 @@ ContextMap AlpesPartners {
   // Reportes/Analítica consume de múltiples fuentes (PL)
   ReportesYAnalitica [D,ACL]<-[U,PL] TrackingEventos
   ReportesYAnalitica [D,ACL]<-[U,PL] Pagos
-  ReportesYAnalitica [D,ACL]<-[U,PL] GestionCampanias
+  ReportesYAnalitica [D,ACL]<-[U,PL] Marketing
   ReportesYAnalitica [D,ACL]<-[U,PL] GestionAsociacionesEstrategicas
+
+  // Contenido y productos con Asociaciones Estratégicas
+  GestionAsociacionesEstrategicas [D,ACL]<-[U,PL] ContenidoYProductos
 
   // Cumplimiento Normativo regional expone OHS; consumidores protegen su modelo con ACL
   // Contratos -> Cumplimiento (por región)
