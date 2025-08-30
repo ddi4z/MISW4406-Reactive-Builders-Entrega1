@@ -1,13 +1,13 @@
 Domain CreacionYGestionDeAsociacionesEstrategicas {
-  domainVisionStatement = "Creación, gestión y escalamiento de asociaciones estratégicas entre marcas, afiliados, influencers, embajadores y socios B2B."
+  domainVisionStatement = "Creación, gestión y escalamiento de asociaciones estratégicas entre marcas y socios."
 
   //--- Subdominios de Núcleo ---//
   Subdomain Afiliados {
     type = CORE_DOMAIN
-    domainVisionStatement = "Gestión de programas de afiliación."
+    domainVisionStatement = "Gestión de programas de afiliados."
   }
 
-  Subdomain InfluencersYCreadores {
+  Subdomain InfluencersYCreadoresContenido {
     type = CORE_DOMAIN
     domainVisionStatement = "Gestión de marketing de influencers y creadores de contenido."
   }
@@ -17,14 +17,14 @@ Domain CreacionYGestionDeAsociacionesEstrategicas {
     domainVisionStatement = "Gestión de programas de lealtad."
   }
 
-  Subdomain Alianzas {
+  Subdomain AlianzasB2B {
     type = CORE_DOMAIN
     domainVisionStatement = "Gestión de alianzas Business To Business."
   }
 
-  Subdomain Campanias {
+  Subdomain TrackingEventos {
     type = CORE_DOMAIN
-    domainVisionStatement = "Gestión de campañas de marketing."
+    domainVisionStatement = "Tracking y procesamiento de eventos."
   }
 
   //--- Subdominios de Soporte ---//
@@ -33,43 +33,43 @@ Domain CreacionYGestionDeAsociacionesEstrategicas {
     domainVisionStatement = "Administración y automatización de procesos internos y operaciones."
   }
 
-  Subdomain Cumplimiento {
+  Subdomain CumplimientoYAuditoria {
     type = SUPPORTING_DOMAIN
-    domainVisionStatement = "Supervisión de cumplimiento normativo y auditoría antifraude."
+    domainVisionStatement = "Cumplimiento normativo y auditoría antifraude."
   }
 
   Subdomain PagosYFinCore {
     type = SUPPORTING_DOMAIN
-    domainVisionStatement = "Procesamiento de pagos y finCore."
+    domainVisionStatement = "Procesamiento de pagos y FinCore."
   }
 
-  Subdomain Contratos {
+  Subdomain ContratosYOnboarding {
     type = SUPPORTING_DOMAIN
     domainVisionStatement = "Gestión de contratos y onboarding."
   }
 
-  Subdomain Reportes {
+  Subdomain ReportesYAnalitica {
     type = SUPPORTING_DOMAIN
     domainVisionStatement = "Generación de reportes y analítica de datos."
   }
 
-  Subdomain Contenido {
+  Subdomain ContenidoYProductos {
     type = SUPPORTING_DOMAIN
     domainVisionStatement = "Gestión de contenido y productos."
   }
 
   //--- Subdominios Genéricos ---//
-  Subdomain Eventos {
+  Subdomain Campanias {
     type = GENERIC_SUBDOMAIN
-    domainVisionStatement = "Procesamiento y distribución de eventos."
+    domainVisionStatement = "Gestión de campañas de marketing."
   }
 
-  Subdomain MercadeoYVentas {
+  Subdomain PaidMedia {
     type = GENERIC_SUBDOMAIN
-    domainVisionStatement = "Mercadeo y ventas."
+    domainVisionStatement = "Publicidad y marketing pagado."
   }
 
-  Subdomain Finanzas {
+  Subdomain FinanzasYTesoreria {
     type = GENERIC_SUBDOMAIN
     domainVisionStatement = "Gestión financiera y de tesorería."
   }
