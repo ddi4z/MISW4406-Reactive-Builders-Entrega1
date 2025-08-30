@@ -1,24 +1,26 @@
+import "subdominios.cml"
+
 // ---------------------------
 // Bounded Contexts (AS-IS)
 // ---------------------------
 
-BoundedContext ContextoGestionAsociacionesEstrategicas {
+BoundedContext ContextoGestionAsociacionesEstrategicas implements Afiliados, InfluencersYCreadoresContenido, Lealtad, AlianzasB2B {
   domainVisionStatement "Administra la relación de negocio entre partners (afiliados, embajadores, agencias) y marcas, incluyendo la asociación y la creación de campañas."
 }
 
-BoundedContext ContextoContratos {
+BoundedContext ContextoContratosYOnboarding implements ContratosYOnboarding {
   domainVisionStatement "Genera y gestiona contratos entre partners y marcas, considerando los términos legales aplicables a cada región."
 }
 
-BoundedContext ContextoTrackingEventos {
+BoundedContext ContextoTrackingEventos implements TrackingEventos {
   domainVisionStatement "Registra y gestiona los eventos generados en las interacciones de partners y consumidores, habilitando el seguimiento de desempeño."
 }
 
-BoundedContext ContextoPagos {
+BoundedContext ContextoPagos implements PagosYFinCore {
   domainVisionStatement "Gestiona el pago de eventos a los partners de acuerdo con los contratos establecidos, considerando validaciones regulatorias o fiscales de cada región."
 }
 
-BoundedContext ContextoReportesAnalitica {
+BoundedContext ContextoReportesYAnalitica implements ReportesYAnalitica {
   domainVisionStatement "Genera reportes de ejecución de campañas y análisis de partners, apoyando la toma de decisiones de negocio."
 }
 
@@ -28,23 +30,23 @@ BoundedContext ContextoReportesAnalitica {
 
 ContextMap AlpesPartners_ASIS_Monolito {
   contains ContextoGestionAsociacionesEstrategicas
-  contains ContextoContratos
+  contains ContextoContratosYOnboarding
   contains ContextoTrackingEventos
   contains ContextoPagos
-  contains ContextoReportesAnalitica
+  contains ContextoReportesYAnalitica
 
   // NOTA: El sistema actual es un MONOLITO. Para reflejarlo,
   // modelamos un Shared Kernel entre TODOS los contextos (comparten código/datos).
-  ContextoGestionAsociacionesEstrategicas [SK] <-> [SK] ContextoContratos
+  ContextoGestionAsociacionesEstrategicas [SK] <-> [SK] ContextoContratosYOnboarding
   ContextoGestionAsociacionesEstrategicas [SK] <-> [SK] ContextoTrackingEventos
   ContextoGestionAsociacionesEstrategicas [SK] <-> [SK] ContextoPagos
-  ContextoGestionAsociacionesEstrategicas [SK] <-> [SK] ContextoReportesAnalitica
-  ContextoContratos [SK] <-> [SK] ContextoTrackingEventos
-  ContextoContratos [SK] <-> [SK] ContextoPagos
-  ContextoContratos [SK] <-> [SK] ContextoReportesAnalitica
+  ContextoGestionAsociacionesEstrategicas [SK] <-> [SK] ContextoReportesYAnalitica
+  ContextoContratosYOnboarding [SK] <-> [SK] ContextoTrackingEventos
+  ContextoContratosYOnboarding [SK] <-> [SK] ContextoPagos
+  ContextoContratosYOnboarding [SK] <-> [SK] ContextoReportesYAnalitica
   ContextoTrackingEventos [SK] <-> [SK] ContextoPagos
-  ContextoTrackingEventos [SK] <-> [SK] ContextoReportesAnalitica
-  ContextoPagos [SK] <-> [SK] ContextoReportesAnalitica
+  ContextoTrackingEventos [SK] <-> [SK] ContextoReportesYAnalitica
+  ContextoPagos [SK] <-> [SK] ContextoReportesYAnalitica
 
   // -----------------------
   // Relaciones funcionales (según 3ª columna)
@@ -53,27 +55,27 @@ ContextMap AlpesPartners_ASIS_Monolito {
   // Gestión de Asociaciones Estratégicas:
   // - Se relaciona con Contratos para formalizar acuerdos
   // - Provee insumos a Tracking y a Reportes/Analítica
-  ContextoGestionAsociacionesEstrategicas [U] -> [D] ContextoContratos
-  ContextoGestionAsociacionesEstrategicas [U] -> [D] ContextoTrackingEventos
-  ContextoGestionAsociacionesEstrategicas [U] -> [D] ContextoReportesAnalitica
+  ContextoGestionAsociacionesEstrategicas [U] -> [D, ACL] ContextoContratosYOnboarding
+  ContextoGestionAsociacionesEstrategicas [U] -> [D, ACL] ContextoTrackingEventos
+  ContextoGestionAsociacionesEstrategicas [U] -> [D, ACL] ContextoReportesYAnalitica
   // (Implícito): Recibe entidades desde Onboarding
 
   // Contratos:
   // - Provee contratos válidos a Pagos
   // - Es fuente para Tracking (Tracking consume asociaciones y contratos)
-  ContextoContratos [U] -> [D] ContextoPagos
-  ContextoContratos [U] -> [D] ContextoTrackingEventos
+  ContextoContratosYOnboarding [U] -> [D, ACL] ContextoPagos
+  ContextoContratosYOnboarding [U] -> [D, ACL] ContextoTrackingEventos
   // (Implícito): Referencia a Cumplimiento Normativo
 
   // Tracking y Eventos:
   // - Alimenta a Pagos y a Reportes/Analítica
-  ContextoTrackingEventos [U] -> [D] ContextoPagos
-  ContextoTrackingEventos [U] -> [D] ContextoReportesAnalitica
+  ContextoTrackingEventos [U] -> [D, ACL] ContextoPagos
+  ContextoTrackingEventos [U] -> [D, ACL] ContextoReportesYAnalitica
 
   // Pagos:
   // - Provee datos a Reportes/Analítica
   // - (Ya reflejado como downstream de Contratos y Tracking)
-  ContextoPagos [U] -> [D] ContextoReportesAnalitica
+  ContextoPagos [U] -> [D, ACL] ContextoReportesYAnalitica
 
   // Reportes y Analítica:
   // - Consume info de Tracking, Pagos y Gestión de Asociaciones

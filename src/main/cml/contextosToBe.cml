@@ -1,5 +1,71 @@
+import "subdominios.cml"
+
 /* Alpes Partners – TO-BE V1.2 (con regiones normativas y patrones de integración)
- * Notación de relaciones:
+*/
+
+/* -------- Bounded Contexts con Vision Statements del documento -------- */
+
+BoundedContext GestionAsociacionesEstrategicas implements Afiliados, InfluencersYCreadoresContenido, Lealtad, AlianzasB2B {
+  domainVisionStatement = "
+Gestiona la relación de negocio entre partners y marcas, definiendo condiciones y reglas de colaboración y permitiendo la activación de asociaciones.
+Administra todo el ciclo de vida de los partners (afiliados, influencers, embajadores, agencias, marcas),
+"
+}
+
+BoundedContext GestionCampanias implements Campanias {
+  domainVisionStatement = "Gestión de campañas de marketing"
+}
+
+BoundedContext GestionContratosYOnboarding implements ContratosYOnboarding {
+  domainVisionStatement = "
+Genera, administra y valida contratos entre marcas y partners, asegurando que los términos legales y regulatorios de cada región se cumplan.
+"
+}
+
+BoundedContext TrackingEventos implements TrackingEventos {
+  domainVisionStatement = "
+Registra, procesa y valida los eventos generados por las interacciones entre partners y consumidores, incluyendo conversiones y métricas de desempeño.
+"
+}
+
+BoundedContext Pagos implements PagosYFinCore {
+  domainVisionStatement = "Gestiona los pagos a los partners con base en los contratos y eventos registrados, asegurando cumplimiento normativo y fiscal en cada región.
+"
+}
+
+BoundedContext ReportesYAnalitica implements ReportesYAnalitica {
+  domainVisionStatement = "
+Genera reportes de ejecución y análisis de partners y campañas, apoyando la toma de decisiones de campaña.
+"
+}
+
+/* -------- Cumplimiento Normativo Regional (OHS + ACL) -------- */
+
+BoundedContext CumplimientoNormativoLATAM implements CumplimientoYAuditoria {
+  domainVisionStatement = "
+Define y supervisa las reglas regulatorias y fiscales de Latinoamérica (Colombia, Brasil).
+"
+}
+
+BoundedContext CumplimientoNormativoNA implements CumplimientoYAuditoria {
+  domainVisionStatement = "
+Define y supervisa las reglas regulatorias y fiscales de Norteamérica (EE.UU.).
+"
+}
+
+BoundedContext CumplimientoNormativoEMEA implements CumplimientoYAuditoria {
+  domainVisionStatement = "
+Define y supervisa las reglas regulatorias y fiscales de Europa, Medio Oriente y África (Reino Unido, Alemania, Sudáfrica).
+"
+}
+
+BoundedContext CumplimientoNormativoAPAC implements CumplimientoYAuditoria {
+  domainVisionStatement = "
+Define y supervisa las reglas regulatorias y fiscales de Asia-Pacífico (Australia, Singapur, Japón).
+"
+}
+
+/* Notación de relaciones:
  *   Izquierda [D]  = Downstream (consumidor)
  *   Derecha  [U]  = Upstream   (proveedor)
  *   OHS = Open Host Service, PL = Published Language, ACL = Anti-Corruption Layer
@@ -8,110 +74,45 @@
 ContextMap AlpesPartners {
   state = TO_BE
   contains GestionAsociacionesEstrategicas
-  contains GestionCampanas
-  contains GestionContratos
+  contains GestionCampanias
+  contains GestionContratosYOnboarding
   contains TrackingEventos
   contains Pagos
-  contains ReportesAnalitica
+  contains ReportesYAnalitica
   contains CumplimientoNormativoLATAM
   contains CumplimientoNormativoNA
   contains CumplimientoNormativoEMEA
   contains CumplimientoNormativoAPAC
 
   // Campañas depende de Asociaciones (obtiene elegibilidad, condiciones, etc.)
-  GestionCampanas [D,ACL]<-[U,OHS] GestionAsociacionesEstrategicas
+  GestionCampanias [D,ACL]<-[U,OHS] GestionAsociacionesEstrategicas
 
   // Contratos depende de Asociaciones (entrada de relación partner↔marca)
-  GestionContratos [D,ACL]<-[U,OHS] GestionAsociacionesEstrategicas
+  GestionContratosYOnboarding [D,ACL]<-[U,OHS] GestionAsociacionesEstrategicas
 
-  // Tracking consume publicaciones de Campañas y Asociaciones (PL)
-  TrackingEventos [D]<-[U,PL] GestionCampanas
-  TrackingEventos [D]<-[U,PL] GestionAsociacionesEstrategicas
+  // Tracking consume publicaciones de Asociaciones (PL)
+  TrackingEventos [D,ACL]<-[U,PL] GestionAsociacionesEstrategicas
 
   // Pagos depende de Contratos (OHS) y de Tracking (PL)
-  Pagos [D,ACL]<-[U,OHS] GestionContratos
+  Pagos [D,ACL]<-[U,OHS] GestionContratosYOnboarding
   Pagos [D,ACL]<-[U,PL]  TrackingEventos
 
   // Reportes/Analítica consume de múltiples fuentes (PL)
-  ReportesAnalitica [D]<-[U,PL] TrackingEventos
-  ReportesAnalitica [D]<-[U,PL] Pagos
-  ReportesAnalitica [D]<-[U,PL] GestionCampanas
-  ReportesAnalitica [D]<-[U,PL] GestionAsociacionesEstrategicas
+  ReportesYAnalitica [D,ACL]<-[U,PL] TrackingEventos
+  ReportesYAnalitica [D,ACL]<-[U,PL] Pagos
+  ReportesYAnalitica [D,ACL]<-[U,PL] GestionCampanias
+  ReportesYAnalitica [D,ACL]<-[U,PL] GestionAsociacionesEstrategicas
 
   // Cumplimiento Normativo regional expone OHS; consumidores protegen su modelo con ACL
   // Contratos -> Cumplimiento (por región)
-  GestionContratos [D,ACL]<-[U,OHS] CumplimientoNormativoLATAM
-  GestionContratos [D,ACL]<-[U,OHS] CumplimientoNormativoNA
-  GestionContratos [D,ACL]<-[U,OHS] CumplimientoNormativoEMEA
-  GestionContratos [D,ACL]<-[U,OHS] CumplimientoNormativoAPAC
+  GestionContratosYOnboarding [D,ACL]<-[U,OHS] CumplimientoNormativoLATAM
+  GestionContratosYOnboarding [D,ACL]<-[U,OHS] CumplimientoNormativoNA
+  GestionContratosYOnboarding [D,ACL]<-[U,OHS] CumplimientoNormativoEMEA
+  GestionContratosYOnboarding [D,ACL]<-[U,OHS] CumplimientoNormativoAPAC
 
   // Pagos -> Cumplimiento (por región)
   Pagos [D,ACL]<-[U,OHS] CumplimientoNormativoLATAM
   Pagos [D,ACL]<-[U,OHS] CumplimientoNormativoNA
   Pagos [D,ACL]<-[U,OHS] CumplimientoNormativoEMEA
   Pagos [D,ACL]<-[U,OHS] CumplimientoNormativoAPAC
-}
-
-/* -------- Bounded Contexts con Vision Statements del documento -------- */
-
-BoundedContext GestionAsociacionesEstrategicas {
-  domainVisionStatement = "
-Gestiona la relación de negocio entre partners y marcas, definiendo condiciones y reglas de colaboración y permitiendo la activación de asociaciones.
-Administra todo el ciclo de vida de los partners (afiliados, influencers, embajadores, agencias, marcas),
-"
-}
-
-BoundedContext GestionCampanas {
-  domainVisionStatement = "
-Administra la creación, activación y seguimiento de campañas de marketing para todos los tipos de partners.
-"
-}
-
-BoundedContext GestionContratos {
-  domainVisionStatement = "
-Genera, administra y valida contratos entre marcas y partners, asegurando que los términos legales y regulatorios de cada región se cumplan.
-"
-}
-
-BoundedContext TrackingEventos {
-  domainVisionStatement = "
-Registra, procesa y valida los eventos generados por las interacciones entre partners y consumidores, incluyendo conversiones y métricas de desempeño.
-"
-}
-
-BoundedContext Pagos {
-  domainVisionStatement = "Gestiona los pagos a los partners con base en los contratos y eventos registrados, asegurando cumplimiento normativo y fiscal en cada región.
-"
-}
-
-BoundedContext ReportesAnalitica {
-  domainVisionStatement = "
-Genera reportes de ejecución y análisis de partners y campañas, apoyando la toma de decisiones de campaña.
-"
-}
-
-/* -------- Cumplimiento Normativo Regional (OHS + ACL) -------- */
-
-BoundedContext CumplimientoNormativoLATAM {
-  domainVisionStatement = "
-Define y supervisa las reglas regulatorias y fiscales de Latinoamérica (Colombia, Brasil).
-"
-}
-
-BoundedContext CumplimientoNormativoNA {
-  domainVisionStatement = "
-Define y supervisa las reglas regulatorias y fiscales de Norteamérica (EE.UU.).
-"
-}
-
-BoundedContext CumplimientoNormativoEMEA {
-  domainVisionStatement = "
-Define y supervisa las reglas regulatorias y fiscales de Europa, Medio Oriente y África (Reino Unido, Alemania, Sudáfrica).
-"
-}
-
-BoundedContext CumplimientoNormativoAPAC {
-  domainVisionStatement = "
-Define y supervisa las reglas regulatorias y fiscales de Asia-Pacífico (Australia, Singapur, Japón).
-"
 }
