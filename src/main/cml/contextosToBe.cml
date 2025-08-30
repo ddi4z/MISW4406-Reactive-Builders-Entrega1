@@ -5,11 +5,20 @@ import "subdominios.cml"
 
 /* -------- Bounded Contexts con Vision Statements del documento -------- */
 
-BoundedContext GestionAsociacionesEstrategicas implements Afiliados, InfluencersYCreadoresContenido, Lealtad, AlianzasB2B {
-  domainVisionStatement = "
-Gestiona la relación de negocio entre partners y marcas, definiendo condiciones y reglas de colaboración y permitiendo la activación de asociaciones.
-Administra todo el ciclo de vida de los partners (afiliados, influencers, embajadores, agencias, marcas),
-"
+BoundedContext GestionProgramasAfiliados implements Afiliados {
+  domainVisionStatement = "Gestiona la relación de negocio para programas de afiliados"
+}
+
+BoundedContext GestionInfluencersYCreadores implements InfluencersYCreadoresContenido {
+  domainVisionStatement = "Gestiona la relación de negocio para programas de influencers y creadores de contenido"
+}
+
+BoundedContext GestionProgramasLealtad implements Lealtad {
+  domainVisionStatement = "Gestiona la relación de negocio para programas de lealtad"
+}
+
+BoundedContext GestionAlianzasB2B implements AlianzasB2B {
+  domainVisionStatement = "Gestiona la relación de negocio para alianzas B2B"
 }
 
 BoundedContext Marketing implements Campanias, PaidMedia {
@@ -79,7 +88,10 @@ Define y supervisa las reglas regulatorias y fiscales de Asia-Pacífico (Austral
 
 ContextMap AlpesPartners {
   state = TO_BE
-  contains GestionAsociacionesEstrategicas
+  contains GestionProgramasAfiliados
+  contains GestionInfluencersYCreadores
+  contains GestionProgramasLealtad
+  contains GestionAlianzasB2B
   contains Marketing
   contains GestionContratosYOnboarding
   contains TrackingEventos
@@ -92,13 +104,22 @@ ContextMap AlpesPartners {
   contains CumplimientoNormativoAPAC
 
   // Marketing depende de Asociaciones
-  Marketing [D,ACL]<-[U,OHS] GestionAsociacionesEstrategicas
+  Marketing [D,ACL]<-[U,OHS] GestionProgramasAfiliados
+  Marketing [D,ACL]<-[U,OHS] GestionInfluencersYCreadores
+  Marketing [D,ACL]<-[U,OHS] GestionProgramasLealtad
+  Marketing [D,ACL]<-[U,OHS] GestionAlianzasB2B
 
   // Contratos depende de Asociaciones (entrada de relación partner↔marca)
-  GestionContratosYOnboarding [D,ACL]<-[U,OHS] GestionAsociacionesEstrategicas
+  GestionContratosYOnboarding [D,ACL]<-[U,OHS] GestionProgramasAfiliados
+  GestionContratosYOnboarding [D,ACL]<-[U,OHS] GestionInfluencersYCreadores
+  GestionContratosYOnboarding [D,ACL]<-[U,OHS] GestionProgramasLealtad
+  GestionContratosYOnboarding [D,ACL]<-[U,OHS] GestionAlianzasB2B
 
   // Tracking consume publicaciones de Asociaciones (PL)
-  TrackingEventos [D,ACL]<-[U,PL] GestionAsociacionesEstrategicas
+  TrackingEventos [D,ACL]<-[U,PL] GestionProgramasAfiliados
+  TrackingEventos [D,ACL]<-[U,PL] GestionInfluencersYCreadores
+  TrackingEventos [D,ACL]<-[U,PL] GestionProgramasLealtad
+  TrackingEventos [D,ACL]<-[U,PL] GestionAlianzasB2B
 
   // Pagos depende de Contratos (OHS) y de Tracking (PL)
   Pagos [D,ACL]<-[U,OHS] GestionContratosYOnboarding
@@ -108,10 +129,16 @@ ContextMap AlpesPartners {
   ReportesYAnalitica [D,ACL]<-[U,PL] TrackingEventos
   ReportesYAnalitica [D,ACL]<-[U,PL] Pagos
   ReportesYAnalitica [D,ACL]<-[U,PL] Marketing
-  ReportesYAnalitica [D,ACL]<-[U,PL] GestionAsociacionesEstrategicas
+  ReportesYAnalitica [D,ACL]<-[U,PL] GestionProgramasAfiliados
+  ReportesYAnalitica [D,ACL]<-[U,PL] GestionInfluencersYCreadores
+  ReportesYAnalitica [D,ACL]<-[U,PL] GestionProgramasLealtad
+  ReportesYAnalitica [D,ACL]<-[U,PL] GestionAlianzasB2B
 
   // Contenido y productos con Asociaciones Estratégicas
-  GestionAsociacionesEstrategicas [D,ACL]<-[U,PL] ContenidoYProductos
+  GestionProgramasAfiliados [D,ACL]<-[U,PL] ContenidoYProductos
+  GestionInfluencersYCreadores [D,ACL]<-[U,PL] ContenidoYProductos
+  GestionProgramasLealtad [D,ACL]<-[U,PL] ContenidoYProductos
+  GestionAlianzasB2B [D,ACL]<-[U,PL] ContenidoYProductos
 
   // Cumplimiento Normativo regional expone OHS; consumidores protegen su modelo con ACL
   // Contratos -> Cumplimiento (por región)
